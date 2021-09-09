@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="T1W-OW-WrC" customClass="MiniPlayerView" customModule="MusicApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dtU-pI-3aP">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="4"/>
+                </progressView>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="4NZ-eV-khN">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FDr-ah-Yd1">
+                            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="FDr-ah-Yd1" secondAttribute="height" id="sgk-PJ-C3k"/>
+                            </constraints>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" image="heart" catalog="system"/>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hvf-Ee-GNT">
+                            <rect key="frame" x="59" y="0.0" width="296" height="44"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="14u-py-Mgf">
+                            <rect key="frame" x="370" y="0.0" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="14u-py-Mgf" secondAttribute="height" id="dCq-1m-4Zr"/>
+                            </constraints>
+                            <state key="normal" image="play"/>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="8YE-Ms-GXp"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="4NZ-eV-khN" firstAttribute="top" secondItem="T1W-OW-WrC" secondAttribute="top" id="65X-Qv-soR"/>
+                <constraint firstItem="4NZ-eV-khN" firstAttribute="leading" secondItem="T1W-OW-WrC" secondAttribute="leading" id="Cwv-8i-5Ui"/>
+                <constraint firstAttribute="bottom" secondItem="4NZ-eV-khN" secondAttribute="bottom" id="Odq-UA-9xx"/>
+                <constraint firstItem="dtU-pI-3aP" firstAttribute="top" secondItem="T1W-OW-WrC" secondAttribute="top" id="WFu-CC-djx"/>
+                <constraint firstAttribute="trailing" secondItem="dtU-pI-3aP" secondAttribute="trailing" id="WWI-WJ-cCZ"/>
+                <constraint firstItem="dtU-pI-3aP" firstAttribute="leading" secondItem="T1W-OW-WrC" secondAttribute="leading" id="j7n-Vs-Jif"/>
+                <constraint firstAttribute="trailing" secondItem="4NZ-eV-khN" secondAttribute="trailing" id="sgB-xH-xV2"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="isFavouriteLabel" destination="FDr-ah-Yd1" id="9Ux-Ml-9lB"/>
+                <outlet property="playPauseButton" destination="14u-py-Mgf" id="IAg-zB-z8h"/>
+                <outlet property="trackLabel" destination="hvf-Ee-GNT" id="rl5-q6-zvE"/>
+            </connections>
+            <point key="canvasLocation" x="345" y="-628"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="play" width="59" height="59"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
