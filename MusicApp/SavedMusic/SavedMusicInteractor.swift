@@ -9,18 +9,24 @@
 import UIKit
 
 protocol SavedMusicBusinessLogic {
-  func makeRequest(request: SavedMusic.Model.Request.RequestType)
+    func makeRequest(request: SavedMusic.Model.Request.RequestType)
 }
 
 class SavedMusicInteractor: SavedMusicBusinessLogic {
-
-  var presenter: SavedMusicPresentationLogic?
-  var service: SavedMusicService?
-  
-  func makeRequest(request: SavedMusic.Model.Request.RequestType) {
-    if service == nil {
-      service = SavedMusicService()
+    
+    var presenter: SavedMusicPresentationLogic?
+    var service: SavedMusicService?
+    
+    func makeRequest(request: SavedMusic.Model.Request.RequestType) {
+        if service == nil {
+            service = SavedMusicService()
+        }
+        switch request {
+        case .getTracks:
+            if let tracksViewModel = service?.getTracksViewModel() {
+                presenter?.presentData(response: .presentTracks(viewModel: tracksViewModel))
+            }
+        }
     }
-  }
-  
+    
 }

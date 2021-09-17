@@ -27,7 +27,7 @@ class PlayerView: UIView {
     @IBOutlet weak private var artinstNameLabel: UILabel!
     @IBOutlet weak private var currentTimeLabel: UILabel!
     @IBOutlet weak private var durationLabel: UILabel!
-
+    
     @IBOutlet weak private var currentTimeSlider: UISlider!
     @IBOutlet weak private var soundSlider: UISlider!
     @IBOutlet weak private var playPauseButton: UIButton!
@@ -39,11 +39,13 @@ class PlayerView: UIView {
     @IBOutlet weak var isFavouriteButton: UIButton!
     @IBOutlet weak var miniTrackLabel: UILabel!
     @IBOutlet weak var miniPlayPauseButton: UIButton!
+    
     private let player = AVPlayer()
+    private var trackViewModel: TrackCellViewModelType?
     
     var delegate: PlayerDelegate?
     var navigationDelegate: SlideOutNavigationDelegate?
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         addGestures()
@@ -85,7 +87,10 @@ class PlayerView: UIView {
     }
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
-        //....
+        let archivator = DataArchivator()
+        if let viewModel = trackViewModel {
+            archivator.add(track: viewModel)
+        }
     }
     
     @IBAction func playPauseTapped(_ sender: UIButton) {
@@ -103,6 +108,7 @@ class PlayerView: UIView {
     }
     
     func setup(viewModel: TrackCellViewModelType) {
+        trackViewModel = viewModel
         trackNameLabel.text = viewModel.trackName
         artinstNameLabel.text = viewModel.artistName
         miniTrackLabel.text = viewModel.trackName
@@ -162,9 +168,27 @@ class PlayerView: UIView {
     private func addGestures() {
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         miniPlayerView.addGestureRecognizer(gestureRecognizer)
+        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
+        mainPlayerView.addGestureRecognizer(swipeGestureRecognizer)
     }
     
+    @objc private func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
+        switch gesture.direction {
+        case .down:
+            navigationDelegate?.slideDown()
+        case .up:
+            if mainPlayerView.isHidden {
+                navigationDelegate?.slideUp(viewModel: nil)
+            }
+        default: break
+        }
+    }
+    
+    @IBAction func swipedDown(_ sender: Any) {
+        navigationDelegate?.slideDown() 
+    }
     @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
         navigationDelegate?.slideUp(viewModel: nil)
     }
+    
 }

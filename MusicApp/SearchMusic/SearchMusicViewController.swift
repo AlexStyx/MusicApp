@@ -108,8 +108,10 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let trackCell = tableView.dequeueReusableCell(withIdentifier: TrackCell.reuseId, for: indexPath) as? TrackCell else { fatalError("Cannot cast to track cell") }
-        guard let trackCellViewModel = viewModel?.cells[indexPath.row] else { return trackCell }
+        guard
+            let trackCell = tableView.dequeueReusableCell(withIdentifier: TrackCell.reuseId, for: indexPath) as? TrackCell,
+            let trackCellViewModel = viewModel?.cells[indexPath.row]
+        else { fatalError("Cannot cast to track cell") }
         trackCell.setup(viewModel: trackCellViewModel)
         return trackCell
     }
@@ -118,12 +120,6 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
         guard
             let trackCellViewModel = viewModel?.cells[indexPath.row]
         else { return }
-//        let playerView: PlayerView = PlayerView.loadFromNib()
-//        playerView.frame = CGRect(origin: CGPoint.zero, size: UIScreen.main.bounds.size)
-//        playerView.setup(viewModel: trackCellViewModel)
-//        playerView.delegate = self
-//        playerViewNavigationDelegate?.slideUp(viewModel: trackCellViewModel)
-//        window.addSubview(playerView)
         playerViewNavigationDelegate?.slideUp(viewModel: trackCellViewModel)
     }
     

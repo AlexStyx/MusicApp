@@ -13,17 +13,17 @@ enum SavedMusic {
   enum Model {
     struct Request {
       enum RequestType {
-        case some
+        case getTracks
       }
     }
     struct Response {
       enum ResponseType {
-        case some
+        case presentTracks(viewModel: TracksViewModel)
       }
     }
     struct ViewModel {
       enum ViewModelData {
-        case some
+        case displayTracks(viewModel: TracksViewModel)
       }
     }
   }

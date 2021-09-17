@@ -9,8 +9,7 @@ import UIKit
 import SnapKit
 
 class MainTabBarController: UITabBarController {
-    private var topContraint: Constraint?
-    private var bottomConstraint: Constraint?
+    private var topConstraint: Constraint?
     private var playerView: PlayerView = PlayerView.loadFromNib()
     
     override func viewDidLoad() {
@@ -41,10 +40,10 @@ class MainTabBarController: UITabBarController {
     private func layoutPlayerView() {
         view.insertSubview(playerView, belowSubview: tabBar)
         playerView.snp.makeConstraints { make in
-            topContraint = make.top.equalTo(tabBar.snp.top).offset(tabBar.bounds.height).constraint
-            bottomConstraint = make.bottom.equalToSuperview().constraint
+            topConstraint = make.top.equalTo(tabBar.snp.top).constraint
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
+            make.height.equalTo(view.snp.height)
         }
     }
 }
@@ -55,9 +54,8 @@ extension MainTabBarController: SlideOutNavigationDelegate {
         if let viewModel = viewModel {
             playerView.setup(viewModel: viewModel)
         }
-        let viewHeight =  UIScreen.main.bounds.height - tabBar.bounds.height
-        topContraint?.update(offset: -viewHeight)
-        bottomConstraint?.update(offset: 0)
+        let playerViewHeight =  UIScreen.main.bounds.height - tabBar.bounds.height
+        topConstraint?.update(offset: -playerViewHeight)
         animatePlayerView()
         tabBar.isHidden = true
         playerView.showMiniPlayer(false)
@@ -65,8 +63,7 @@ extension MainTabBarController: SlideOutNavigationDelegate {
     
     
     func slideDown() {
-        topContraint?.update(offset: -40)
-        bottomConstraint?.update(offset: view.bounds.height)
+        topConstraint?.update(offset: -40)
         animatePlayerView()
         tabBar.isHidden = false
         playerView.showMiniPlayer(true)

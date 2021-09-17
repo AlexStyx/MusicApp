@@ -12,12 +12,14 @@ class DataArchivator {
     private let userDefaults = UserDefaults.standard
     
     func add(track: TrackCellViewModelType) {
-        guard var tracks = getTracks()?.cells else { return }
-        tracks.append(track)
-        saveTracks(tracks: tracks)
+        DispatchQueue.global(qos: .userInitiated).async  {
+            var tracks = self.getTracksViewModel()?.cells ?? []
+            tracks.append(track)
+            self.saveTracks(tracks: tracks)
+        }
     }
     
-    func getTracks() -> TracksViewModel? {
+    func getTracksViewModel() -> TracksViewModel? {
         let unarchivedTracks: [ArchivableTrack]?
         guard let data = userDefaults.data(forKey: Keys.tracks) else { return nil }
         do {
@@ -37,7 +39,7 @@ class DataArchivator {
     
     private func saveTracks(tracks: [TrackCellViewModelType]) {
         let archivableTracks = tracks.map { ArchivableTrack(viewModel: $0)}
-        let trackData: Data
+        var trackData: Data
         do {
             trackData = try NSKeyedArchiver.archivedData(withRootObject: archivableTracks, requiringSecureCoding: false)
         } catch let error as NSError {
@@ -56,6 +58,7 @@ class ArchivableTrack: NSObject, NSCoding {
         coder.encode(trackName, forKey: Keys.Track.trackName)
         coder.encode(collectionName, forKey: Keys.Track.collectionName)
         coder.encode(previewURL, forKey: Keys.Track.previewURL)
+        coder.encode(trackData, forKey: Keys.Track.trackData)
     }
     
     required init?(coder: NSCoder) {
@@ -64,7 +67,6 @@ class ArchivableTrack: NSObject, NSCoding {
         trackName = coder.decodeObject(forKey: Keys.Track.trackName) as? String ?? ""
         collectionName = coder.decodeObject(forKey: Keys.Track.trackName) as? String
         previewURL = coder.decodeObject(forKey: Keys.Track.previewURL) as? String
-        
     }
     
     let imageURL: String?
@@ -72,6 +74,10 @@ class ArchivableTrack: NSObject, NSCoding {
     let trackName: String
     let collectionName: String?
     let previewURL: String?
+    private var trackData: Data? {
+        guard let url = URL(string: previewURL ?? "") else { return nil }
+        return try? Data(contentsOf: url)
+    }
     
     init(viewModel: TrackCellViewModelType) {
         artistName = viewModel.artistName

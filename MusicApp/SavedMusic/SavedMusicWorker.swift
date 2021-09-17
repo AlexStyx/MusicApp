@@ -9,5 +9,10 @@
 import UIKit
 
 class SavedMusicService {
+    
+    private let archivator = DataArchivator()
 
+    func getTracksViewModel() -> TracksViewModel? {
+        archivator.getTracksViewModel()
+    }
 }

@@ -209,6 +209,7 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="t1A-oa-Qvj"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="t1A-oa-Qvj" firstAttribute="trailing" secondItem="TSU-Lt-ZpL" secondAttribute="trailing" id="4mI-ST-in9"/>
                 <constraint firstItem="k2G-7Z-2So" firstAttribute="top" secondItem="t1A-oa-Qvj" secondAttribute="top" id="Elo-Ia-MUy"/>
@@ -234,9 +235,15 @@
                 <outlet property="timestepProgressView" destination="Khr-st-epd" id="Ufv-o7-cLg"/>
                 <outlet property="trackImageView" destination="ofv-Lh-Lwz" id="2oM-da-60l"/>
                 <outlet property="trackNameLabel" destination="ePv-Jm-SPO" id="5ow-qy-vb2"/>
+                <outletCollection property="gestureRecognizers" destination="MqV-nh-GIf" appends="YES" id="olY-EJ-h1f"/>
             </connections>
             <point key="canvasLocation" x="266.66666666666669" y="63.616071428571423"/>
         </view>
+        <swipeGestureRecognizer direction="down" id="MqV-nh-GIf">
+            <connections>
+                <action selector="swipedDown:" destination="mj0-lX-Og8" id="m8m-ih-Uae"/>
+            </connections>
+        </swipeGestureRecognizer>
     </objects>
     <resources>
         <image name="Drag Down" width="37" height="12"/>

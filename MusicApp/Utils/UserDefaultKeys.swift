@@ -14,6 +14,7 @@ struct Keys {
         static let trackName = "trackName"
         static let collectionName = "collectionName"
         static let previewURL = "previewURL"
+        static let trackData = "trackData"
     }
     
     static let tracks = "tracks"

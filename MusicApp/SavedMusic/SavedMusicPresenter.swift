@@ -16,7 +16,10 @@ class SavedMusicPresenter: SavedMusicPresentationLogic {
     weak var viewController: SavedMusicDisplayLogic?
     
     func presentData(response: SavedMusic.Model.Response.ResponseType) {
-    
+        switch response {
+        case .presentTracks(let viewModel):
+            viewController?.displayData(viewModel: .displayTracks(viewModel: viewModel))
+        }
     }
     
 }
