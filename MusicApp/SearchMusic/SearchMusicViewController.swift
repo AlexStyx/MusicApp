@@ -134,6 +134,10 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
         label.textAlignment = .center
         return label
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        70
+    }
 }
 
 //MARK: - UISearchBarDelegate

@@ -59,23 +59,25 @@ class TrackCell: UITableViewCell {
         addSubview(artistNameLabel)
     }
     
+    //TODO:- Fix layout to be out of mistakes
+    
     private func layout() {
         trackImageView.snp.makeConstraints { make in
-            make.top.equalTo(self).offset(5)
-            make.bottom.equalTo(self).offset(-5)
+            make.centerY.equalToSuperview()
             make.height.equalTo(60)
-            make.leading.equalTo(self).offset(20)
+            make.leading.equalToSuperview().offset(20)
             make.width.equalTo(trackImageView.snp.height)
         }
+        
         trackNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(self).offset(12)
+            make.top.equalToSuperview().offset(12)
             make.leading.equalTo(trackImageView.snp.trailing).offset(10)
-            make.trailing.equalTo(self).offset(-10)
+            make.trailing.equalToSuperview().offset(-10)
         }
         artistNameLabel.snp.makeConstraints { make in
             make.top.equalTo(trackNameLabel.snp.bottom).offset(5)
             make.leading.equalTo(trackImageView.snp.trailing).offset(10)
-            make.trailing.equalTo(self).offset(-10)
+            make.trailing.equalToSuperview().offset(-10)
         }
     }
 }
