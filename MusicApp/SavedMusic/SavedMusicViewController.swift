@@ -13,14 +13,6 @@ protocol SavedMusicDisplayLogic: AnyObject {
 }
 
 class SavedMusicViewController: UIViewController, SavedMusicDisplayLogic {
-        
-//    private var tracks: [TrackCellViewModelType]? {
-//        didSet {
-//            if tracks != nil {
-//                tableView.reloadData()
-//            }
-//        }
-//    }
     
     private var viewModel: TracksViewModel? {
         didSet {
@@ -115,7 +107,7 @@ extension SavedMusicViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(#function)
+        //TODO: add track selection for viewController
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
