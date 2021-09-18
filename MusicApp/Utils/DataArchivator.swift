@@ -58,7 +58,6 @@ class ArchivableTrack: NSObject, NSCoding {
         coder.encode(trackName, forKey: Keys.Track.trackName)
         coder.encode(collectionName, forKey: Keys.Track.collectionName)
         coder.encode(previewURL, forKey: Keys.Track.previewURL)
-        coder.encode(trackData, forKey: Keys.Track.trackData)
     }
     
     required init?(coder: NSCoder) {
@@ -74,10 +73,6 @@ class ArchivableTrack: NSObject, NSCoding {
     let trackName: String
     let collectionName: String?
     let previewURL: String?
-    private var trackData: Data? {
-        guard let url = URL(string: previewURL ?? "") else { return nil }
-        return try? Data(contentsOf: url)
-    }
     
     init(viewModel: TrackCellViewModelType) {
         artistName = viewModel.artistName
