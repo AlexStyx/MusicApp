@@ -157,7 +157,7 @@ extension SearchMusicViewController: PlayerDelegate {
     }
     
     func goToPreviousTrack() -> TrackCellViewModelType? {
-        return getTrack(isNext: false)
+        getTrack(isNext: false)
     }
     
     
