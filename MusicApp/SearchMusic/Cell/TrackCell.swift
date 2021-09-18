@@ -58,9 +58,6 @@ class TrackCell: UITableViewCell {
         addSubview(trackNameLabel)
         addSubview(artistNameLabel)
     }
-    
-    //TODO:- Fix layout to be out of mistakes
-    
     private func layout() {
         trackImageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()

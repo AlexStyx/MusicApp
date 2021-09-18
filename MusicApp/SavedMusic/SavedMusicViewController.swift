@@ -14,9 +14,17 @@ protocol SavedMusicDisplayLogic: AnyObject {
 
 class SavedMusicViewController: UIViewController, SavedMusicDisplayLogic {
         
-    private var tracks: [TrackCellViewModelType]? {
+//    private var tracks: [TrackCellViewModelType]? {
+//        didSet {
+//            if tracks != nil {
+//                tableView.reloadData()
+//            }
+//        }
+//    }
+    
+    private var viewModel: TracksViewModel? {
         didSet {
-            if tracks != nil {
+            if viewModel != nil {
                 tableView.reloadData()
             }
         }
@@ -61,7 +69,7 @@ class SavedMusicViewController: UIViewController, SavedMusicDisplayLogic {
     func displayData(viewModel: SavedMusic.Model.ViewModel.ViewModelData) {
         switch viewModel {
         case .displayTracks(let trackViewModel):
-            tracks = trackViewModel.cells
+            self.viewModel = trackViewModel
         }
     }
     
@@ -94,12 +102,12 @@ class SavedMusicViewController: UIViewController, SavedMusicDisplayLogic {
 //MARK: - UITableViewDelegate, UITableViewDataSource
 extension SavedMusicViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        tracks?.count ?? 0
+        viewModel?.cells.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TrackCell.reuseId, for: indexPath) as? TrackCell,
-              let track = tracks?[indexPath.row]
+              let track = viewModel?.cells[indexPath.row]
         else { fatalError() }
         cell.setup(viewModel: track)
         return cell
@@ -108,6 +116,10 @@ extension SavedMusicViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(#function)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        70
     }
     
     
