@@ -18,7 +18,7 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         layoutPlayerView()
         searchMusicViewContoller.playerViewNavigationDelegate = self
-        savedMusicViewController.navigationDelegate = self
+        savedMusicViewController.playerViewNavigationDelegate = self
         let searchViewController = generateNavigationController(rootViewController: searchMusicViewContoller, title: "Search", imageName: "magnifyingglass")
         let saveViewController = generateNavigationController(rootViewController: savedMusicViewController, title: "Saved", imageName: "square.and.arrow.down")
         viewControllers = [

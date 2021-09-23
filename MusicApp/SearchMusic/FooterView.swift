@@ -56,16 +56,15 @@ class FooterView: UIView {
         }
     }
     
-    func hideFooterView() {
+    func hide() {
         activityIndicator.stopAnimating()
         loadingLabel.isHidden = true
     }
     
-    func showFooterView() {
+    func show() {
         activityIndicator.startAnimating()
         loadingLabel.isHidden = false
     }
-    
 }
 
 

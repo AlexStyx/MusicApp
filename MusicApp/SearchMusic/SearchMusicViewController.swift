@@ -26,11 +26,9 @@ class SearchMusicViewController: UIViewController, SearchMusicDisplayLogic {
     private var viewModel: TracksViewModel? {
         didSet {
             tableView.reloadData()
-            footerView.hideFooterView()
+            footerView.hide()
         }
     }
-    
-    // MARK: - Object lifecycle
     
     // MARK: - Setup
     
@@ -45,9 +43,6 @@ class SearchMusicViewController: UIViewController, SearchMusicDisplayLogic {
         presenter.viewController  = viewController
         router.viewController     = viewController
     }
-    
-    // MARK: - Routing
-    
     
     
     // MARK: - View lifecycle
@@ -66,7 +61,7 @@ class SearchMusicViewController: UIViewController, SearchMusicDisplayLogic {
         case .displeyTracks(let searchViewModel):
             self.viewModel = searchViewModel
         case .displayFooter:
-            footerView.showFooterView()
+            footerView.show()
         }
     }
     
@@ -144,7 +139,7 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
 extension SearchMusicViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self]_ in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] _ in
             self?.interactor?.makeRequest(request: .requestTracks(searchText: searchText))
         })
     }

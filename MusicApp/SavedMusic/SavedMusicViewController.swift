@@ -24,7 +24,7 @@ class SavedMusicViewController: UIViewController, SavedMusicDisplayLogic {
     var interactor: SavedMusicBusinessLogic?
     var router: (NSObjectProtocol & SavedMusicRoutingLogic)?
     
-    var navigationDelegate: SlideOutNavigationDelegate?
+    var playerViewNavigationDelegate: SlideOutNavigationDelegate?
     
     
     // MARK: Setup
@@ -40,10 +40,6 @@ class SavedMusicViewController: UIViewController, SavedMusicDisplayLogic {
         presenter.viewController  = viewController
         router.viewController     = viewController
     }
-    
-    // MARK: Routing
-    
-    
     
     // MARK: View lifecycle
     
@@ -110,7 +106,7 @@ extension SavedMusicViewController: UITableViewDelegate, UITableViewDataSource {
         guard
             let trackViewModel = viewModel?.cells[indexPath.row]
         else { return }
-        navigationDelegate?.slideUp(viewModel: trackViewModel)
+        playerViewNavigationDelegate?.slideUp(viewModel: trackViewModel)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -120,7 +116,7 @@ extension SavedMusicViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-// MARK: Player delegate
+// MARK: -  Player delegate
 extension SavedMusicViewController: PlayerDelegate {
     func goToNextTrack() -> TrackCellViewModelType? {
         getTrack(isNext: true)
