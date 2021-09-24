@@ -18,6 +18,7 @@ protocol SlideOutNavigationDelegate {
     func slideDown()
     func slideUp(viewModel: TrackCellViewModelType?)
 }
+
 class PlayerView: UIView {
     
     @IBOutlet weak private var miniPlayerView: UIView!

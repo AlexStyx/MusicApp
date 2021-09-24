@@ -13,6 +13,7 @@ protocol TrackCellViewModelType {
     var collectionName: String? { get }
     var trackName: String { get }
     var trackPreviewURL: String? { get }
+    var isFavourite: Bool { get set }
 }
 
 struct TrackCellViewModel: TrackCellViewModelType {
@@ -21,6 +22,7 @@ struct TrackCellViewModel: TrackCellViewModelType {
     var collectionName: String?
     var trackName: String
     var trackPreviewURL: String?
+    var isFavourite: Bool = false
     
     init(trackModel: TrackModel) {
         self.imageURL = trackModel.artworkUrl60

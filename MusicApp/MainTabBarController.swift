@@ -17,6 +17,7 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutPlayerView()
+        tabBar.backgroundColor = .systemGray6
         searchMusicViewContoller.playerViewNavigationDelegate = self
         savedMusicViewController.playerViewNavigationDelegate = self
         let searchViewController = generateNavigationController(rootViewController: searchMusicViewContoller, title: "Search", imageName: "magnifyingglass")

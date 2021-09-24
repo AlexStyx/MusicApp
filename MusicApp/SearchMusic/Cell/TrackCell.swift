@@ -12,6 +12,8 @@ import SDWebImage
 class TrackCell: UITableViewCell {
     static let reuseId = "trackCell"
     
+    private var isFavourite = false
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -25,6 +27,13 @@ class TrackCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "nosign")
         return imageView
+    }()
+    
+    private lazy var isFavouriteButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(systemName: isFavourite ? "heart.fill" : "heart")
+        button.setImage(image, for: .normal)
+        return button
     }()
     
     private let trackNameLabel: UILabel = {
@@ -46,6 +55,7 @@ class TrackCell: UITableViewCell {
         artistNameLabel.text = viewModel.collectionName == nil ? viewModel.artistName :  viewModel.artistName + " • " + viewModel.collectionName!
         guard let imageUrl = URL(string: viewModel.imageURL ?? "") else { return }
         trackImageView.sd_setImage(with: imageUrl, completed: nil)
+        isFavourite = viewModel.isFavourite
     }
     
     private func setupUI () {
@@ -69,12 +79,17 @@ class TrackCell: UITableViewCell {
         trackNameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(12)
             make.leading.equalTo(trackImageView.snp.trailing).offset(10)
-            make.trailing.equalToSuperview().offset(-10)
+            make.trailing.equalTo(isFavouriteButton).offset(-5)
         }
         artistNameLabel.snp.makeConstraints { make in
             make.top.equalTo(trackNameLabel.snp.bottom).offset(5)
             make.leading.equalTo(trackImageView.snp.trailing).offset(10)
-            make.trailing.equalToSuperview().offset(-10)
+            make.trailing.equalTo(isFavouriteButton).offset(-5)
+        }
+        
+        isFavouriteButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().offset(-20)
         }
     }
 }
