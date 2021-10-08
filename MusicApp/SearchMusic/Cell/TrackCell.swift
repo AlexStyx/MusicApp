@@ -29,13 +29,6 @@ class TrackCell: UITableViewCell {
         return imageView
     }()
     
-    private lazy var isFavouriteButton: UIButton = {
-        let button = UIButton()
-        let image = UIImage(systemName: isFavourite ? "heart.fill" : "heart")
-        button.setImage(image, for: .normal)
-        return button
-    }()
-    
     private let trackNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
@@ -68,6 +61,7 @@ class TrackCell: UITableViewCell {
         addSubview(trackNameLabel)
         addSubview(artistNameLabel)
     }
+    
     private func layout() {
         trackImageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
@@ -79,17 +73,13 @@ class TrackCell: UITableViewCell {
         trackNameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(12)
             make.leading.equalTo(trackImageView.snp.trailing).offset(10)
-            make.trailing.equalTo(isFavouriteButton).offset(-5)
+            make.trailing.equalToSuperview().offset(-10)
         }
+        
         artistNameLabel.snp.makeConstraints { make in
             make.top.equalTo(trackNameLabel.snp.bottom).offset(5)
             make.leading.equalTo(trackImageView.snp.trailing).offset(10)
-            make.trailing.equalTo(isFavouriteButton).offset(-5)
-        }
-        
-        isFavouriteButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.leading.equalToSuperview().offset(-20)
+            make.trailing.equalToSuperview().offset(-10)
         }
     }
 }

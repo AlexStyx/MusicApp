@@ -15,13 +15,8 @@ class NetwokrService {
     static let shared = NetwokrService()
     
     func fetchMusic(searchText: String, completion: @escaping (ResponseModel) -> ()) {
-        let url = "https://itunes.apple.com/search?term=jack+johnson"
-        let parameters = [
-            "term": searchText,
-            "media": "music",
-            "limit": "25"
-        ]
-        AF.request(url, method: .get, parameters: parameters).responseData { [weak self] responseData in
+        guard let url = configureURL() else { fatalError("Cannot configure url") }
+        AF.request(url, method: .get, parameters: params(searchTerm: searchText)).responseData { [weak self] responseData in
             guard
                 responseData.error == nil,
                 let data = responseData.data
@@ -31,6 +26,22 @@ class NetwokrService {
             guard let responseModel = self?.parseJSON(data: data) else { fatalError("Cannot get responseModel") }
             completion(responseModel)
         }
+    }
+    
+    private func params(searchTerm: String)  -> [String: String] {
+        [
+            "term": searchTerm,
+            "media": "music",
+            "limit": "25"
+        ]
+    }
+    
+    private func configureURL() -> URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "itunes.apple.com"
+        components.path = "/search"
+        return components.url
     }
     
     private func parseJSON(data: Data) -> ResponseModel {
